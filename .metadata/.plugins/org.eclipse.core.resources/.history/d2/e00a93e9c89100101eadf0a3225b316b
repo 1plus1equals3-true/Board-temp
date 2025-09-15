@@ -1,0 +1,131 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+String login_id = "";
+login_id = (String)session.getAttribute("ss_check");
+%>
+
+<style>
+.board-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.board-header h1 {
+    font-size: 28px;
+    color: #343a40;
+    margin: 0;
+    font-weight: bold;
+    text-align: left;
+}
+
+.board-header h1 a {
+	font-size: 28px;
+    color: #343a40;
+    margin: 0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.board-header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+    text-align: right;
+}
+
+.board-header nav li a {
+    text-decoration: none;
+    color: #495057;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.board-header nav li a:hover {
+    color: #007bff;
+}
+
+/* 라이트 모드 (기본값) */
+:root {
+  --background-color: #ffffff;
+  --text-color: #1a1a1a;
+  --button-background-color: #f0f0f0;
+}
+
+/* 다크 모드 */
+[data-theme='dark'] {
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
+  --button-background-color: #333333;
+}
+
+/* 변수 사용 */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+}
+
+#theme-toggle-btn {
+  background-color: var(--button-background-color);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 8px 16px;
+  cursor: pointer;
+}
+</style>
+<% if(login_id == null || login_id.equals("") || login_id.equals("null")) { %>
+<header class="board-header">
+    <h1>게 시 판</h1>
+    <nav>
+        <ul>
+            <li>로그인 ID : 비로그인</li>
+            <li><a href="../member/Login.jsp">로그인 하기</a></li>
+            <li><a href="#">@</a></li>
+            <li><a href="#">@</a></li>
+        </ul>
+    </nav>
+</header>
+<% }else { %>
+<header class="board-header">
+    <h1><a href="list.jsp">게 시 판</a></h1>
+    <nav>
+        <ul>
+            <li>로그인 ID : <%= login_id %></li>
+            <li><a href="#">@</a></li>
+            <li><button id="theme-toggle-btn">테마 전환</button></li>
+            <li><a href="../member/Logout.jsp">로그아웃</a></li>
+        </ul>
+    </nav>
+</header>
+<% } %>
+
+<script>
+//1. 모드 전환 버튼 요소 가져오기
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+// 2. body 요소 가져오기
+const body = document.body;
+
+// 3. 버튼 클릭 이벤트 리스너 추가
+themeToggleBtn.addEventListener('click', () => {
+    // 현재 테마 확인
+    const currentTheme = body.getAttribute('data-theme');
+
+    // 테마 전환
+    if (currentTheme === 'dark') {
+        body.setAttribute('data-theme', 'light');
+    } else {
+        body.setAttribute('data-theme', 'dark');
+    }
+});
+</script>

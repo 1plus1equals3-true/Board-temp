@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<style>
+td {
+padding: 10px;
+text-align: center;
+}
+</style>
+</head>
+<body>
+<%
+  Date today = new Date(); // 현재 날짜와 시간 객체 생성
+  SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy"); // 년도 형식 지정
+  String year = yearFormat.format(today); // 년도만 추출
+  int intyear = Integer.parseInt(year);
+%>
+
+	<h2>로 그 인</h2>
+
+	<form action="@@.jsp" method="post" enctype="multipart/form-data">
+		<table>
+		
+		<tr>
+		<td>아이디</td>
+		<td><input type="text" name="loginid"></td>
+		<td rowspan="2">
+			<input type="submit" value="로그인">
+			<a href="Join.jsp"><button type="button">회원가입</button></a>
+		</td>
+		</tr>
+		
+		<tr>
+		<td>비밀번호</td>
+		<td><input type="password" name="loginpass"></td>
+		</tr>
+		
+		</table>
+	</form>
+</body>
+</html>

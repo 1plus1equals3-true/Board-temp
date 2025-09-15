@@ -1,0 +1,53 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<style>
+td {
+padding: 10px;
+text-align: center;
+}
+</style>
+</head>
+<body>
+<%
+  //아이디비번 받아와서 디비연결하고
+  //1. 아이디 있는지 확인 (쿼리에서 아이디가 아이디인사람)
+  //2. 비밀번호 일치 확인 (비밀번호도 맞는사람)
+  //3. db에서 일치하는 사람 count로 받아와서 0이면 다시 로그인 (실패 알림과 로케이션.백() )
+  //	아니면 로그인(성공 알림과 로케이션.리플레이스(리스트)로 이동)
+%>
+
+	<h2>로 그 인</h2>
+
+	<form action="Login_proc.jsp" method="post">
+		<table>
+		
+		<tr>
+		<td>아이디</td>
+		<td><input type="text" name="loginid"></td>
+		<td rowspan="2">
+			<input type="submit" value="로그인">
+		</td>
+		</tr>
+		
+		<tr>
+		<td>비밀번호</td>
+		<td><input type="password" name="loginpass"></td>
+		</tr>
+		
+		<tr>
+		<td></td>
+		<td><a href="Join.jsp"><button type="button">회원가입</button></a></td>
+		<td><a href="List.jsp"><button type="button">리스트</button></a></td>
+		</tr>
+		
+		</table>
+	</form>
+</body>
+</html>
