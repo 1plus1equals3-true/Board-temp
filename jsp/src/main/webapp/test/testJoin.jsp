@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
 td {
 padding: 10px;
@@ -27,32 +28,37 @@ text-align: center;
 	if (loginerr != null) out.print("비밀번호가 일치하지 않습니다.");
 %>
 
-	<form action="Join_proc.jsp" method="post" enctype="multipart/form-data" onsubmit="">
+	<form action="Join_proc.jsp" method="post" enctype="multipart/form-data">
 		<table>
 		<tr>
-		<td>아이디</td>
-		<td><input type="text" name="uid" id="uid"></td>
+			<td>아이디</td>
+			<td><input type="text" name="uid" id="uid" onkeyup="id_check()"></td>
+			<td><span id="id_msg"></span></td>
 		</tr>
 		
 		<tr>
 		<td>비밀번호</td>
 		<td><input type="password" name="upass1"></td>
+		<td></td>
 		</tr>
 		
 		<tr>
 		<td>비밀번호 확인</td>
 		<td><input type="password" name="upass2"></td>
+		<td></td>
 		</tr>
 		
 		<tr>
 		<td>이름</td>
 		<td><input type="text" name="uname"></td>
+		<td></td>
 		</tr>
 		
 		<tr>
 		<td>성별</td>
 		<td><input type="radio" name="sex" value="M" checked="checked">남자
 			<input type="radio" name="sex" value="F">여자</td>
+			<td></td>
 		</tr>
 		
 		<tr>
@@ -100,6 +106,7 @@ text-align: center;
 		%>
 		</select>일
 		</td>
+		<td></td>
 		</tr>
 		
 		<tr>
@@ -107,11 +114,13 @@ text-align: center;
 		<td><input type="checkbox" name="hobby" value="football">축구
 			<input type="checkbox" name="hobby" value="basketball">농구
 			<input type="checkbox" name="hobby" value="Volleyball">배구</td>
+		<td></td>
 		</tr>
 		
 		<tr>
 		<td>사진</td>
 		<td><input type="file" name="upfile" accept=".gif, .jpg, .png"></td>
+		<td></td>
 		</tr>
 
 		<tr>
@@ -120,6 +129,7 @@ text-align: center;
 			<input type="reset" value="리셋">
 		<a href="List.jsp"><button type="button">리스트</button></a>
 		</td>
+		<td></td>
 		</tr>
 		
 		</table>
@@ -140,6 +150,45 @@ function submit_check() {
 }
 </script>
 
+<script type="text/javascript">
+function id_check()
+{
+   var uid = $('#uid').val();
+   
+   if(uid.length < 4)
+   {
+      return;
+   }
+   
+   $.ajax({
+      url : "./testserver.jsp",
+      type : "post",
+      data : {uid: uid},
+      dataType : 'html',
+      success : function(result){
+         
+         var data = result.trim();
+         
+         if(data == "Y")
+         {
+            var msg = "<font color='blue'>사용 가능</font>";
+            $('#id_msg').html(msg);
+         }
+         else
+         {
+            var msg = "<font color='red'>사용 불가</font>";
+            $('#id_msg').html(msg);
+         }
+      },
+      error: function (request, status, error) {
+           console.log("code: " + request.status)
+           console.log("message: " + request.responseText)
+           console.log("error: " + error);
+       }
+   });
+   return;
+}
+</script>
 
 </html>
 

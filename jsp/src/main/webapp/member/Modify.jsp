@@ -11,13 +11,113 @@
 <meta charset="UTF-8">
 <title>Modify</title>
 <style>
-td {
-padding: 10px;
-text-align: center;
+.profile-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.profile-table tr {
+    transition: background-color 0.3s ease;
+}
+
+.profile-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.profile-table td {
+    padding: 15px 25px;
+    vertical-align: top;
+}
+
+.profile-table td:first-child {
+    font-weight: bold;
+    color: #495057;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.profile-table td:last-child {
+    color: #343a40;
+    text-align: left;
+}
+
+.profile-table tr:last-child td {
+    border-bottom: none;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-table input[type="text"],
+.profile-table input[type="password"],
+.profile-table select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #495057;
+}
+
+.profile-table input[type="radio"],
+.profile-table input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.profile-table input[type="file"] {
+    margin-top: 10px;
+}
+
+.profile-table label {
+    font-weight: normal;
+    color: #495057;
+}
+
+.profile-table button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin: 0 5px;
+}
+
+.profile-table button[type="submit"] {
+    background-color: #007bff;
+}
+
+.profile-table button[type="reset"] {
+    background-color: #dc3545;
+}
+
+.profile-table a button[type="button"] {
+    background-color: #6c757d;
+}
+
+.profile-table button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.profile-table button:active {
+    transform: translateY(0);
 }
 </style>
 </head>
 <body>
+<%@ include file="../board/op_top.jsp" %>
 <%
   Date today = new Date(); // 현재 날짜와 시간 객체 생성
   SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy"); // 년도 형식 지정
@@ -109,7 +209,7 @@ if(rs != null){
 
 <input type="hidden" name="idx" value="<%= idx %>">
 
-	<table>
+	<table class="profile-table">
 			<tr>
 			<td>아이디</td>
 			<td><input type="text" name="uid" value="<%= uid %>" readonly></td>
@@ -144,17 +244,17 @@ if(rs != null){
 				for (int i=1950; i<=intyear; i++) {
 					if (i==yyyyyy) {
 			%>
-						<option value="<%= i %>" selected="selected"><%= i %></option>
+						<option value="<%= i %>" selected="selected"><%= i %> 년</option>
 			<%
 					}
 					else {
 			%>
-					<option value="<%= i %>"><%= i %></option>
+					<option value="<%= i %>"><%= i %> 년</option>
 			<%
 					}
 				}
 			%>
-			</select>년
+			</select><br><br>
 			
 			<select name="mm">
 			<%
@@ -163,9 +263,9 @@ if(rs != null){
 			%>
 					<option value="<%= i %>" selected="selected">
 										<% if (i < 10) { %>
-											0<%= i %>
+											0<%= i %> 월
 										<% } else { %>
-											<%= i %>
+											<%= i %> 월
 										<% } %>
 					</option>
 			<%
@@ -174,16 +274,16 @@ if(rs != null){
 			%>
 					<option value="<%= i %>">
 										<% if (i < 10) { %>
-											0<%= i %>
+											0<%= i %> 월
 										<% } else { %>
-											<%= i %>
+											<%= i %> 월
 										<% } %>
 					</option>
 			<%
 					}
 				}
 			%>
-			</select>월
+			</select><br><br>
 			
 			<select name="dd">
 			<% 
@@ -192,9 +292,9 @@ if(rs != null){
 			%>
 					<option value="<%= i %>" selected="selected">
 										<% if (i < 10) { %>
-											0<%= i %>
+											0<%= i %> 일
 										<% } else { %>
-											<%= i %>
+											<%= i %> 일
 										<% } %>
 					</option>
 			<%
@@ -203,9 +303,9 @@ if(rs != null){
 			%>
 					<option value="<%= i %>">
 										<% if (i < 10) { %>
-											0<%= i %>
+											0<%= i %> 일
 										<% } else { %>
-											<%= i %>
+											<%= i %> 일
 										<% } %>
 					</option>
 			<%
@@ -213,7 +313,7 @@ if(rs != null){
 				}
 			%>
 			
-			</select>일
+			</select>
 			
 			<tr>
 			<td>취미</td>
@@ -255,10 +355,11 @@ if(rs != null){
 			</tr>
 			
 			<tr>
-			<td></td>
-			<td><button type="submit">수정</button>
+			
+			<td colspan="2">
+				<button type="submit">수정</button>
 				<button type="reset">리셋</button>
-			<a href="List.jsp"><button type="button">리스트</button></a>
+				<a href="../member/View.jsp?uid=<%= uid %>"><button type="button">취소</button></a>
 			</td>
 			</tr>
 	</table>

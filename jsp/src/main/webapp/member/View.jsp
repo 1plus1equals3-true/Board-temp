@@ -9,17 +9,100 @@
 <meta charset="UTF-8">
 <title>View</title>
 <style>
-td {
-padding: 10px;
-text-align: center;
+
+.profile-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-img {
-width: 200px;
-object-fit: contain;
+
+.profile-table tr {
+    transition: background-color 0.3s ease;
+}
+
+.profile-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.profile-table tr:hover {
+    /*background-color: #f1f3f5;*/
+}
+
+.profile-table td {
+    padding: 15px 25px;
+    vertical-align: top;
+    /*border-bottom: 1px solid #dee2e6;  */
+}
+
+.profile-table td:first-child {
+    font-weight: bold;
+    color: #495057;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.profile-table td:last-child {
+    color: #343a40;
+    text-align: center;
+}
+
+.profile-table tr:last-child td {
+    border-bottom: none;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-table img {
+    max-width: 30%;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+
+.profile-table button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin: 0 5px;
+}
+
+.profile-table a:nth-child(1) button { /* 수정 */
+    background-color: #007bff;
+}
+
+.profile-table a:nth-child(2) button { /* 삭제 */
+    background-color: #dc3545;
+}
+
+.profile-table a:nth-child(3) button { /* 리스트 */
+    background-color: #6c757d;
+}
+
+.profile-table button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.profile-table button:active {
+    transform: translateY(0);
 }
 </style>
 </head>
 <body>
+<%@ include file="../board/op_top.jsp" %>
 <h2>회 원 정 보</h2>
 
 <%
@@ -65,9 +148,9 @@ if(rs != null){
    String upfile = rs.getString("upfile");
    String originalfile = rs.getString("originalfile");
 %>
-<table border="0">
+<table class="profile-table">
 <tr>
-<td>기본키 :</td>
+<td>회원번호 :</td>
 <td><%= idx %></td>
 </tr>
 <tr>
@@ -109,16 +192,15 @@ if(rs != null){
 </td>
 </tr>
 <tr>
-<td></td>
-<td><a href="Modify.jsp?uid=<%= uid %>"><button type="button">수정</button></a>
+<td colspan="2"><a href="Modify.jsp?uid=<%= uid %>"><button type="button">수정</button></a>
 <a href="Delete.jsp?uid=<%= uid %>"><button type="button">삭제</button></a>
-<a href="List.jsp"><button type="button">리스트</button></a></td>
+<a href="../board/list.jsp"><button type="button">리스트</button></a></td>
 </tr>
 </table>
 <%
 }
 %>
-
+<%@ include file="../board/op_bot.jsp" %>
 </body>
 </html>
 

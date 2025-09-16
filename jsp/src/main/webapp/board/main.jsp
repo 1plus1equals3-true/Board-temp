@@ -17,6 +17,8 @@
 	text-align: center;
 	box-sizing: border-box;
 }
+
+
 /*두번째 섹션*/
 .grid-container {
     display: flex;
@@ -144,7 +146,7 @@
 </section>
 <section class="grid-container">
 	<div>
-		<h3>공지사항</h3>
+		<h3><a href="../board/list_notice.jsp" style="border-bottom: none; text-align: center; color: black;">공지사항</a></h3>
 		<c:forEach var="row" items="${Noticelist}">
 			<a href="<c:url value="../board/view.jsp"><c:param name="idx" value="${row.idx}" /></c:url>">
 	    		<c:out value="${row.title}" />

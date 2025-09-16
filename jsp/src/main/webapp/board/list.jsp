@@ -4,12 +4,11 @@
     <%@ page import="lib.DB" %>
 
 <%
-String sql = "";
+String sql = "select count(*) as cnt from board";
 Connection conn = null;
 Statement st = null;
 ResultSet rs = null;
 %>
-
 <%@ include file="op_paging_cal.jsp" %>
 
 
@@ -23,7 +22,9 @@ ResultSet rs = null;
 	margin: 0 auto;
 	padding: 0;
 	text-align: center;
+	box-sizing: border-box;
 }
+
 .wwrite {
 	padding: 8px 16px;
     border: none;
@@ -33,6 +34,9 @@ ResultSet rs = null;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+.wwrite:hover {
+    background-color: #0056b3;
 }
 /*페이징*/
 .aa {
@@ -150,7 +154,6 @@ ResultSet rs = null;
 </style>
 </head>
 <body>
-
 <%
 
 try {

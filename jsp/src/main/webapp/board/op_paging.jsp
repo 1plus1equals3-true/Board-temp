@@ -16,17 +16,17 @@
 	for (int i=page_group_start; i<=page_group_end; i++) {
 		if(i==now_page) {
 %>
-			<a href="list.jsp?_page=<%= i %>&key=<%= key %>&word=<%= word %>" class="aa aaa"><%= i %></a>
+			<a href="?_page=<%= i %>&key=<%= key %>&word=<%= word %>" class="aa aaa"><%= i %></a>
 <%
 		}else if (i<=Math.ceil(dcount/scale)) { //totalp
 %>
-			<a href="list.jsp?_page=<%= i %>&key=<%= key %>&word=<%= word %>" class="aa aah"><%= i %></a>
+			<a href="?_page=<%= i %>&key=<%= key %>&word=<%= word %>" class="aa aah"><%= i %></a>
 <%
 		}
 	}
 	if (page_group_end<pageCount) { 
 %>
-    	<a href="list.jsp?_page=<%= page_group_end+1 %>&key=<%= key %>&word=<%= word %>" class="aa aah">▶</a>
+    	<a href="?_page=<%= page_group_end+1 %>&key=<%= key %>&word=<%= word %>" class="aa aah">▶</a>
 <%
 	}else {
 %>

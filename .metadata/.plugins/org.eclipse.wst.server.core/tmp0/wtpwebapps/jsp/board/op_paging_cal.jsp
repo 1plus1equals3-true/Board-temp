@@ -19,7 +19,6 @@ offset = (now_page-1)*scale ;
 
 try {
 	conn = DB.getConnection();
-	sql = "select count(*) as cnt from board";
 	st = conn.createStatement();
 	rs = st.executeQuery(sql);
 	rs.next();

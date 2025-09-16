@@ -14,6 +14,7 @@
 	margin: 0 auto;
 	padding: 0;
 	text-align: center;
+	box-sizing: border-box;
 }
 .view-table {
     width: 100%;

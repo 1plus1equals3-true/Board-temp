@@ -188,6 +188,11 @@
 	String [] h = multi.getParameterValues("hobby");
 	if(h != null) {hobby = String.join(",", h);}
 	
+	if (fileName == null) {
+    	filetimeex = null;
+    	dir = null;
+    }
+	
 %>
 
 
@@ -250,7 +255,7 @@
 				 
 				 out.println("등록성공");
 				 
-				 response.sendRedirect("List.jsp");
+				 response.sendRedirect("Login.jsp");
 				 
 				 
 			  }

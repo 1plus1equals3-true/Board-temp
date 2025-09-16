@@ -109,7 +109,7 @@
 		</tr>
 		<% } %>
 		
-		<% if (login_id.equals("admin")) { %>
+		<% if (login_rank == 9) { %>
 		<tr>
 			<td>공지사항</td>
 			<td><input type="checkbox" name="Noticemode"></td>

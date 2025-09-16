@@ -3,6 +3,11 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="page_gr"/>
+		<item value="page_group_end"/>
+		<item value="ccou"/>
+		<item value="sql"/>
+		<item value="border-bott"/>
 		<item value="fileName"/>
 		<item value="dir"/>
 		<item value="cal"/>
@@ -13,10 +18,5 @@
 		<item value="idx"/>
 		<item value="ext"/>
 		<item value="utf"/>
-		<item value="파일"/>
-		<item value="새로"/>
-		<item value="word"/>
-		<item value="page"/>
-		<item value="multi"/>
 	</list>
 </section>
