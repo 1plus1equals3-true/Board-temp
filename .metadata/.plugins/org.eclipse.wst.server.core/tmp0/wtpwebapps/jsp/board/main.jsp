@@ -166,7 +166,7 @@
 	</div>
 	
 	<div>
-		<h3>회원게시판</h3>
+		<h3><a href="../board/list_member.jsp" style="border-bottom: none; text-align: center; color: black;">회원 게시판</a></h3>
 		<c:forEach var="row" items="${memberboardlist}">
 			<a href="<c:url value="../board/view.jsp"><c:param name="idx" value="${row.idx}" /></c:url>">
 	    		<c:out value="${row.title}" />
@@ -175,7 +175,7 @@
 	</div>
 	
 	<div>
-		<h3>익명게시판</h3>
+		<h3><a href="../board/list_anonymity.jsp" style="border-bottom: none; text-align: center; color: black;">익명 게시판</a></h3>
 		<c:forEach var="row" items="${anonymitylist}">
 			<a href="<c:url value="../board/view.jsp"><c:param name="idx" value="${row.idx}" /></c:url>">
 	    		<c:out value="${row.title}" />

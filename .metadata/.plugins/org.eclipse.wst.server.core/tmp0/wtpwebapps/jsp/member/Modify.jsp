@@ -364,6 +364,6 @@ if(rs != null){
 			</tr>
 	</table>
 </form>
-
+<%@ include file="../board/op_bot.jsp" %>
 </body>
 </html>

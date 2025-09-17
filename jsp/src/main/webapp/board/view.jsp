@@ -211,7 +211,7 @@
     transition: background-color 0.3s ease;
 }
 
-img {
+section img {
 width: 200px;
 object-fit: contain;
 }
@@ -243,12 +243,14 @@ String comname = "";
 String ment = "";
 String comdate = "";
 String cuid = "";
+String boardtype = "";
+int temp_rank = -1;
 
 try{
     
    conn = DB.getConnection();
 
-   sql = "SELECT b.*, m.name as memname FROM board b LEFT JOIN member m ON b.uid = m.uid where b.idx='"+idx+"'";
+   sql = "SELECT b.* FROM board b where b.idx='"+idx+"'";
    st = conn.createStatement();
    rs = st.executeQuery(sql);
     
@@ -261,7 +263,7 @@ try{
 
 if(rs != null){
 	rs.next();
-	String name = rs.getString("memname");
+	String name = rs.getString("name");
 	String title = rs.getString("title");
 	String content = rs.getString("content");
 	String hit = rs.getString("hit");
@@ -270,6 +272,7 @@ if(rs != null){
 	String uid = rs.getString("uid");
 	String upfile = rs.getString("upfile");
 	String originalfile = rs.getString("originalfile");
+	boardtype = rs.getString("boardtype");
 	
 	int ihit = Integer.parseInt(hit);
 	ihit+=1;
@@ -294,6 +297,8 @@ try {
 
 %>
 <%@ include file="op_top.jsp" %>
+<% temp_rank = login_rank; %>
+<section class="min-height">
 <h1>작성 글</h1><br>
 
 <table class="view-table">
@@ -414,10 +419,11 @@ try {
 
 <br>
 <div class="button-group">
-<a href="modify_check.jsp?idx=<%= idx %>"><button type="button" class="btn-modify">수정</button></a>
+<button type="button" class="btn-modify" onclick="modify()">수정</button>
 <a href="delete.jsp?idx=<%= idx %>"><button type="button" class="btn-delete">삭제</button></a>
-<button type="button" onclick="history.back()" class="btn-list">목록</button>
+<button type="button" onclick="list_back()" class="btn-list">목록</button>
 </div>
+</section>
 <%@ include file="op_bot.jsp" %>
 <%
 }
@@ -446,20 +452,83 @@ function toggleEditRow(cidx) {
 
     if (originalRow.style.display !== 'none') {
         originalRow.style.display = 'none';
-        editRow.style.display = 'table-row'; // <tr>의 기본 display 값은 table-row
+        editRow.style.display = 'table-row'; //
     } else {
         originalRow.style.display = 'table-row';
         editRow.style.display = 'none';
     }
 }
 
-// 취소 버튼을 위한 함수
+// 취소 버튼
 function cancelEdit(cidx) {
     var originalRow = document.getElementById("row-" + cidx);
     var editRow = document.getElementById("edit-row-" + cidx);
 
     originalRow.style.display = 'table-row';
     editRow.style.display = 'none';
+}
+//목록 버튼
+function list_back() {
+	var boardtype = "<%= boardtype %>";
+	
+	if (boardtype == "0") {
+		window.location.href = 'list_notice.jsp';
+	}else if (boardtype == "1") {
+		window.location.href = 'list_member.jsp';
+	}else {
+		window.location.href = 'list_anonymity.jsp';
+	}
+}
+
+function modify() {
+	var idx = "<%= idx %>";
+	var boardtype = "<%= boardtype %>";
+	var login_rank = "<%= temp_rank %>";
+	
+	if (boardtype == "0") {
+		if (login_rank == 9) {
+			window.location.href = 'modify.jsp?idx=' + idx;
+		}else {
+			alert("권한 없음")
+			return;
+		}
+		
+	}else if (boardtype == "1") {
+		if (login_rank == 9) {
+			window.location.href = 'modify.jsp?idx=' + idx;
+		}else if (0 <= login_rank && login_rank < 9) {
+			let passinput = prompt('비밀번호를 입력하세요');
+					if (passinput === null) {
+						return;
+					} else if (passinput === "") {
+						alert("아무것도 입력하지 않았습니다.");
+						return;
+					} else {
+						window.location.href = 'modify_check.jsp?idx=' + idx + "&passinput=" + passinput;
+						return;
+					}
+
+		}else {
+			alert("권한 없음")
+			return;
+		}
+		
+	}else {
+		if (login_rank == 9) {
+			window.location.href = 'modify.jsp?idx=' + idx;
+		}else {
+			let passinput = prompt('비밀번호를 입력하세요');
+			if (passinput === null) {
+				return;
+			} else if (passinput === "") {
+				alert("아무것도 입력하지 않았습니다.");
+				return;
+			} else {
+				window.location.href = 'modify_check.jsp?idx=' + idx + "&passinput=" + passinput + "&type=anony";
+				return;
+			}
+		}
+	}
 }
 </script>
 

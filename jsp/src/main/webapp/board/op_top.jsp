@@ -41,6 +41,9 @@ if(login_id == null || login_id.equals("") || login_id.equals("null")) {
 %>
 
 <style>
+.min-height {
+	min-height: 760px;
+}
 *{
 	margin: 0 auto;
 	padding: 0;
@@ -92,8 +95,8 @@ if(login_id == null || login_id.equals("") || login_id.equals("null")) {
 }
 
 header img {
-	max-width: 30px;
-    object-fit: contain;
+	width: 40px;
+    height: 40px;
     border-radius: 4px;
     border: 1px solid #ced4da;
 }
@@ -146,10 +149,10 @@ header img {
     <h1><a href="../board_proc/main_proc.jsp">게 시 판</a></h1>
     <nav>
         <ul>
-            <li>닉네임 : 비로그인</li>
-            <li><a href="#">@</a></li>
-            <li><a href="#">@</a></li>
-            <li><a href="../member/Login.jsp">로그인 하기</a></li>
+            <li><span class="user-info">비로그인</span></li>
+            <li> &nbsp; &nbsp; &nbsp; &nbsp; </li>
+            <li><a href="../member/Join.jsp" class="mypage-btn">회원가입</a></li>
+            <li><a href="../member/Login.jsp" class="mypage-btn">로그인</a></li>
         </ul>
     </nav>
 </header>

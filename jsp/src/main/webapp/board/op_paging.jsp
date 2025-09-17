@@ -24,7 +24,7 @@
 <%
 		}
 	}
-	if (page_group_end<pageCount) { 
+	if (page_group_end<pageCount) {
 %>
     	<a href="?_page=<%= page_group_end+1 %>&key=<%= key %>&word=<%= word %>" class="aa aah">▶</a>
 <%

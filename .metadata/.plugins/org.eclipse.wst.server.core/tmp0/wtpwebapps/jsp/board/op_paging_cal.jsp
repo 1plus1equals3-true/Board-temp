@@ -3,15 +3,30 @@
     pageEncoding="UTF-8"%>
     
 <%
+/*
+String sql = "";
 String key = request.getParameter("key");
 String word = request.getParameter("word");
 if (key == null) {key = "";}
 if (word == null) {word = "";}
 
+if(word != null && !word.equals("")) {
+	sql = " SELECT count(*) as cnt from board where boardtype = '0' and "+key+" like '%"+word+"%'";
+}else {
+	sql = "select count(*) as cnt from board WHERE boardtype = '0'";
+}
+
+Connection conn = null;
+Statement st = null;
+ResultSet rs = null;
+*/
+
 int totalp = 0;
 int scale = 10; //페이지 당 게시물---------------------------------------------------------------
 int offset = 0;
 double count =0;
+double dcount = 0;
+int ccount = 0;
 String _page = request.getParameter("_page");
 if (_page == null) _page = "1";
 int now_page = Integer.parseInt(_page); //현재 페이지
@@ -26,6 +41,9 @@ try {
 	double countt = Math.ceil(count/scale);
 	totalp = (int)countt;
 	
+	dcount = count;
+   	ccount = (int)count;
+	
 	}catch (Exception e) {
 		out.println(sql);
 	}
@@ -37,26 +55,4 @@ int page_group_end = page_group_start+page_scale-1;
 if (page_group_end>totalp) {
 	page_group_end=totalp;
 }
-
-try {
-	conn = DB.getConnection();
-	
-	if(word != null && !word.equals("")) {
-		sql = " SELECT count(*) as cnt from board where "+key+" like '%"+word+"%'";
-	}else {
-		sql = " SELECT count(*) as cnt from board ";
-	}
-	
-}catch (Exception e) {
-	System.out.println(sql);
-}
-
-	st = conn.createStatement();
-   	rs = st.executeQuery(sql);
-   	rs.next();
-   	count = rs.getInt("cnt");
-   	double dcount = count;
-   	int ccount = (int)count;
-    
-    
 %>

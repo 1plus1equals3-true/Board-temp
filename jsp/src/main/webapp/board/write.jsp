@@ -94,6 +94,7 @@
 </head>
 <body>
 <%@ include file="op_top.jsp" %>
+<section class="min-height">
 <h1>글쓰기</h1><br>
 <form action="write_proc.jsp" method="post" enctype="multipart/form-data" class="write-form">
 	<table>
@@ -142,6 +143,7 @@
 		
 	</table>
 </form>
+</section>
 <%@ include file="op_bot.jsp" %>
 </body>
 </html>

@@ -4,7 +4,18 @@
     <%@ page import="lib.DB" %>
 
 <%
-String sql = "select count(*) as cnt from board";
+String sql = "";
+String key = request.getParameter("key");
+String word = request.getParameter("word");
+if (key == null) {key = "";}
+if (word == null) {word = "";}
+
+if(word != null && !word.equals("")) {
+	sql = " SELECT count(*) as cnt from board where "+key+" like '%"+word+"%'";
+}else {
+	sql = "select count(*) as cnt from board";
+}
+
 Connection conn = null;
 Statement st = null;
 ResultSet rs = null;
@@ -176,7 +187,8 @@ try {
 
 %>
 <%@ include file="op_top.jsp" %>
-<h1>리스트</h1><br>
+<section class="min-height">
+<h1>전체 글 보기</h1><br>
 <%
 	if(word != null && !word.equals("")) {
 %>
@@ -224,6 +236,7 @@ try {
 <br><br>
 
 <%@ include file="op_paging.jsp" %>
+</section>
 <%@ include file="op_bot.jsp" %>
 </body>
 </html>

@@ -125,6 +125,7 @@ String title = "";
 String content = "";
 String ip = "";
 String originalfile = "";
+String boardtype = "";
 
 if(rs != null){
 	rs.next();
@@ -134,34 +135,40 @@ if(rs != null){
 	uid = rs.getString("uid");
 	pass = rs.getString("pass");
 	originalfile = rs.getString("originalfile");
+	boardtype = rs.getString("boardtype");
 }
 %>
 
 <%@ include file="op_top.jsp" %>
-<%@ include file="op_logincheck.jsp" %>
 
 <%
-if(login_id == null || !login_id.equals(uid))
-{
-	%>
-	<script>
-	alert("글을 작성한 계정이 아닙니다.");
-	location.replace("view.jsp?idx=<%= idx %>");
-	</script>
-	<%
-	return;
+
+if (login_rank == 9) {
+	
+}else if (0 <= login_rank && login_rank < 9) {
+	if(login_id == null || !login_id.equals(uid)) {
+		if (boardtype.equals("1") || boardtype.equals("0")) {
+			%>
+			<script>
+			alert("권한 없음");
+			location.replace("view.jsp?idx=<%= idx %>");
+			</script>
+			<%
+			return;
+		}
+	}
+}else {
+	if (boardtype.equals("1") || boardtype.equals("0")) {
+		%>
+		<script>
+		alert("권한 없음");
+		location.replace("view.jsp?idx=<%= idx %>");
+		</script>
+		<%
+		return;
+	}
 }
 
-if(delpass == null || !delpass.equals(pass))
-{
-	%>
-	<script>
-	alert("비밀번호가 틀렸습니다.");
-	location.replace("view.jsp?idx=<%= idx %>");
-	</script>
-	<%
-	return;
-}
 %>
 
 <h1>수정</h1><br>
@@ -217,7 +224,7 @@ if(delpass == null || !delpass.equals(pass))
 		<tr>
 			<td colspan="2">
 				<input type="submit" value="수정">
-				<a href="list.jsp"><button type="button" class="btn-cancel">취소</button></a>
+				<a href="view.jsp?idx=<%= idx %>"><button type="button" class="btn-cancel">취소</button></a>
 			</td>
 		</tr>
 		

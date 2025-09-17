@@ -4,7 +4,18 @@
     <%@ page import="lib.DB" %>
 
 <%
-String sql = "select count(*) as cnt from board WHERE boardtype='0'";
+String sql = "";
+String key = request.getParameter("key");
+String word = request.getParameter("word");
+if (key == null) {key = "";}
+if (word == null) {word = "";}
+
+if(word != null && !word.equals("")) {
+	sql = " SELECT count(*) as cnt from board where boardtype = '0' and "+key+" like '%"+word+"%'";
+}else {
+	sql = "select count(*) as cnt from board WHERE boardtype = '0'";
+}
+
 Connection conn = null;
 Statement st = null;
 ResultSet rs = null;
@@ -160,7 +171,7 @@ try {
 	conn = DB.getConnection();
 	
 	if(word != null && !word.equals("")) {
-		sql = "SELECT b.*, m.name AS memname, COUNT(c.bidx) AS comment_count FROM board b LEFT JOIN member m ON b.uid = m.uid LEFT JOIN comment c ON b.idx = c.bidx WHERE b."+key+" LIKE '%"+word+"%' GROUP BY b.idx ORDER BY b.idx DESC limit "+offset+"," + scale;
+		sql = "SELECT b.*, m.name AS memname, COUNT(c.bidx) AS comment_count FROM board b LEFT JOIN member m ON b.uid = m.uid LEFT JOIN comment c ON b.idx = c.bidx WHERE boardtype='0' and b."+key+" LIKE '%"+word+"%' GROUP BY b.idx ORDER BY b.idx DESC limit "+offset+"," + scale;
 	} else {
 		sql = "SELECT b.*, COUNT(c.bidx) AS comment_count FROM board b LEFT JOIN comment c ON b.idx = c.bidx WHERE boardtype='0' GROUP BY b.idx ORDER BY b.idx DESC limit "+offset+"," + scale;
 	}
@@ -176,6 +187,7 @@ try {
 
 %>
 <%@ include file="op_top.jsp" %>
+<section class="min-height">
 <h1>공 지 사 항</h1><br>
 <%
 	if(word != null && !word.equals("")) {
@@ -220,10 +232,13 @@ try {
 	
 </table>
 <br>
+<% if (login_rank == 9) { %>
 <a href="write.jsp"><button type="button" class="wwrite">글쓰기</button></a>
+<% } %>
 <br><br>
 
 <%@ include file="op_paging.jsp" %>
+</section>
 <%@ include file="op_bot.jsp" %>
 </body>
 </html>
